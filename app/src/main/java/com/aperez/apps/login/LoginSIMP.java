@@ -17,13 +17,10 @@ import android.widget.Toast;
 
 import com.aperez.apps.androidfunwithflags.MainActivity;
 import com.aperez.apps.androidfunwithflags.R;
-import com.aperez.apps.data.DatabaseContentProvider;
 import com.aperez.apps.data.DatabaseDescription.Contact;
 import com.aperez.apps.data.DatabaseHelper;
 
-import java.util.Objects;
-
-public class SIMPLogin extends AppCompatActivity
+public class LoginSIMP extends AppCompatActivity
         implements LoaderManager.LoaderCallbacks<Cursor>{
     @Override
     public Loader<Cursor> onCreateLoader(int id, Bundle args) {
@@ -47,7 +44,7 @@ public class SIMPLogin extends AppCompatActivity
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.simp_login_layout);
+        setContentView(R.layout.login_layout_simp);
 
         SIMPpasswd = (EditText) findViewById(R.id.SIMPpaswwdEditText);
         SIMPuser = (EditText) findViewById(R.id.SIMPuserEditText);
@@ -60,9 +57,9 @@ public class SIMPLogin extends AppCompatActivity
 
         String SIMPusername = SIMPuser.getText().toString();
         String SIMPpasswdd = SIMPpasswd.getText().toString();
-        String SIMPconsulta = "SELECT name " +
-                "FROM contacts " +
-                "WHERE name = '" + SIMPusername + "'" + " AND passwd = '" + SIMPpasswdd + "'";
+        String SIMPconsulta = "SELECT ActualLevel " +
+                "FROM POINTS " +
+                "WHERE Player = '" + SIMPusername + "'";
 
         Cursor cursor = SIMPsql.rawQuery(SIMPconsulta, null);
 

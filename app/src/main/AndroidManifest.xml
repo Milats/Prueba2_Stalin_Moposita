@@ -30,7 +30,7 @@
                 android:value="com.aperez.apps.androidfunwithflags.MainActivity" />
         </activity>
         <activity
-            android:name="com.aperez.apps.login.SIMPLogin"
+            android:name="com.aperez.apps.login.LoginSIMP"
             android:label="Login"
             android:theme="@style/AppTheme.NoActionBar"
             android:noHistory="true"
