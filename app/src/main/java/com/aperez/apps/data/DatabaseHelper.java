@@ -38,7 +38,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
         //db.execSQL(CREATE_CONTACTS_TABLE);
         db.execSQL(CREATE_POINTS_TABLE);
-        //db.execSQL(insertPoints1);
+        db.execSQL(insertPoints1);
         db.execSQL(insertPoints2);
     }
     @Override
