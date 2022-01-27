@@ -1,5 +1,6 @@
 package com.aperez.apps.eventhandlers;
 
+import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
@@ -72,7 +73,10 @@ public class GuessButtonListener implements OnClickListener {
                 String SIMPconsulta2 = "UPDATE POINTS " +
                         "SET ActualLevel = '" + level + "'" +
                         " WHERE Player = '" + MainActivity.player + "'";
-                Cursor cursor2 = SIMPsql.rawQuery(SIMPconsulta2, null);
+                ContentValues c = new ContentValues();
+                c.put("ActualLevel", level);
+                int cursor2 = SIMPsql.update("POINTS", c, "Player = " + MainActivity.player, null);
+
                 SIMPdbHelper.close();
 
             } else {

@@ -60,6 +60,13 @@
             android:layout_weight="1"
             android:text="Álex - 12345" />
 
+        <TextView
+            android:id="@+id/textView3"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Requiere reiniciar la app para poder avanzar de nivel" />
+
     </LinearLayout>
     </ScrollView>
 </FrameLayout>
