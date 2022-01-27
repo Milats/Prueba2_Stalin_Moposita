@@ -17,6 +17,10 @@ import com.aperez.apps.data.DatabaseHelper;
 import com.aperez.apps.lifecyclehelpers.QuizViewModel;
 import com.aperez.apps.login.LoginSIMP;
 
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.SQLException;
+
 public class GuessButtonListener implements OnClickListener {
     private MainActivityFragment mainActivityFragment;
     private MainActivity mainActivity;
@@ -54,9 +58,10 @@ public class GuessButtonListener implements OnClickListener {
                                     "returned null",
                             e);
                 }
-                LoginSIMP log = new LoginSIMP();
-                DatabaseHelper SIMPdbHelper = new DatabaseHelper(log, "AddressBook.db", null, 1);
                 SQLiteDatabase SIMPsql = SIMPdbHelper.getReadableDatabase();
+                String SIMPconsulta = "SELECT ActualLevel " +
+                        "FROM POINTS " +
+                        "WHERE Player = '" + 2 + "'";
 
 
             } else {

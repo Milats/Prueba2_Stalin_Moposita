@@ -3,6 +3,7 @@ package com.aperez.apps.data;
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.support.annotation.Nullable;
 
 import com.aperez.apps.androidfunwithflags.MainActivity;
 import com.aperez.apps.androidfunwithflags.MainActivityFragment;
@@ -39,6 +40,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     public DatabaseHelper(MainActivity context, String s, Object o, int i) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
     }
+
 
     @Override
     public void onCreate(SQLiteDatabase db) {
