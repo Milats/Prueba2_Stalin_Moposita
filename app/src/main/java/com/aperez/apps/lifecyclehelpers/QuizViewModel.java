@@ -12,7 +12,7 @@ import java.util.Set;
 
 public class QuizViewModel extends ViewModel {
     private static final String TAG = "FlagQuiz Activity";
-    private static final int FLAGS_IN_QUIZ = 10;
+    private static final int FLAGS_IN_QUIZ = 1;
 
     private List<String> fileNameList;
     private List<String> quizCountriesList;

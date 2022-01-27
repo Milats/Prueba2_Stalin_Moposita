@@ -25,7 +25,8 @@
             android:layout_weight="1"
             android:ems="10"
             android:inputType="textPersonName"
-            android:hint="@string/hint_name_required" />
+            android:hint="@string/hint_name_required"
+            android:text="Danny"/>
 
         <EditText
             android:id="@+id/SIMPpaswwdEditText"
@@ -34,7 +35,8 @@
             android:layout_weight="1"
             android:ems="10"
             android:inputType="textPassword"
-            android:hint="@string/hint_passwd_Required"/>
+            android:hint="@string/hint_passwd_Required"
+            android:text="13456"/>
 
         <Button
             android:id="@+id/SIMPloginButton"

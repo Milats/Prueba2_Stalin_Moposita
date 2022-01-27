@@ -1,6 +1,7 @@
 package com.aperez.apps.eventhandlers;
 
 import android.content.Context;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Handler;
 import android.util.Log;
@@ -14,6 +15,7 @@ import com.aperez.apps.androidfunwithflags.R;
 import com.aperez.apps.androidfunwithflags.ResultsDialogFragment;
 import com.aperez.apps.data.DatabaseHelper;
 import com.aperez.apps.lifecyclehelpers.QuizViewModel;
+import com.aperez.apps.login.LoginSIMP;
 
 public class GuessButtonListener implements OnClickListener {
     private MainActivityFragment mainActivityFragment;
@@ -52,12 +54,9 @@ public class GuessButtonListener implements OnClickListener {
                                     "returned null",
                             e);
                 }
-
-                DatabaseHelper SIMPdbHelper = new DatabaseHelper(this, "AddressBook.db", null, 1);
+                LoginSIMP log = new LoginSIMP();
+                DatabaseHelper SIMPdbHelper = new DatabaseHelper(log, "AddressBook.db", null, 1);
                 SQLiteDatabase SIMPsql = SIMPdbHelper.getReadableDatabase();
-                String SIMPUpdate = "UPDATE POINTS " +
-                        "FROM POINTS " +
-                        "WHERE Player = '" + player + "'";
 
 
             } else {
