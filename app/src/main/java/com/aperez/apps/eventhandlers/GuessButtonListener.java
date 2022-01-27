@@ -71,7 +71,7 @@ public class GuessButtonListener implements OnClickListener {
                 }
                 String SIMPconsulta2 = "UPDATE POINTS " +
                         "SET ActualLevel = '" + level + "'" +
-                        "WHERE Player = '" + MainActivity.player + "'";
+                        " WHERE Player = '" + MainActivity.player + "'";
                 Cursor cursor2 = SIMPsql.rawQuery(SIMPconsulta2, null);
                 SIMPdbHelper.close();
 
