@@ -6,6 +6,7 @@ import android.content.SharedPreferences;
 import android.content.SharedPreferences.OnSharedPreferenceChangeListener;
 import android.content.pm.ActivityInfo;
 import android.content.res.Configuration;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
@@ -13,6 +14,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.TextView;
 
 import com.aperez.apps.data.DatabaseHelper;
 import com.aperez.apps.eventhandlers.PreferenceChangeListener;
@@ -26,7 +28,10 @@ public class MainActivity extends AppCompatActivity {
     private MainActivityFragment quizFragment;
     private QuizViewModel quizViewModel;
     private OnSharedPreferenceChangeListener preferencesChangeListener;
-    private String actualLevel;
+
+    private String player = "0";
+    private String actualLevel = "0";
+    private TextView playerName;
 
     private void setSharedPreferences() {
         PreferenceManager.setDefaultValues(this, R.xml.preferences, false);
@@ -48,6 +53,7 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
         super.onCreate(savedInstanceState);
         this.quizViewModel = ViewModelProviders.of(this).get(QuizViewModel.class);
         this.preferencesChangeListener = new PreferenceChangeListener(this);
@@ -58,9 +64,27 @@ public class MainActivity extends AppCompatActivity {
         DatabaseHelper SIMPdbHelper = new DatabaseHelper(this, "AddressBook.db", null, 1);
         SQLiteDatabase SIMPsql = SIMPdbHelper.getReadableDatabase();
 
+        playerName = findViewById(R.id.textViewJugador);
+
+        Bundle extras = getIntent().getExtras();
+        if (extras != null) {
+            String player = extras.getString("player");
+            //The key argument here must match that used in the other activity
+            if(player.equals("1")){
+                playerName.setText("Danny");
+            } else if(player.equals("2")){
+                playerName.setText("Álex");
+            }
+        }
+
+        String SIMPconsulta = "SELECT ActualLevel " +
+                "FROM POINTS " +
+                "WHERE Player = '" + player + "'";
+
+        Cursor cursor = SIMPsql.rawQuery(SIMPconsulta, null);
 
 
-        editor.putString("pref_numberOfChoices", "22");
+        editor.putString("pref_numberOfChoices", "2");
 
         editor.commit();
         setContentView(R.layout.activity_main);

@@ -10,6 +10,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.FrameLayout;
@@ -58,26 +59,23 @@ public class LoginSIMP extends AppCompatActivity
         String SIMPusername = SIMPuser.getText().toString();
         String SIMPpasswdd = SIMPpasswd.getText().toString();
         Boolean login = false;
+        String player = "0";
 
-        if(SIMPusername == "Danny" && SIMPpasswdd == "13456"){
+        if(SIMPusername.equals("Danny") && SIMPpasswdd.equals("13456")){
             login = true;
+            player = "1";
         }
-        if(SIMPusername == "Álex" && SIMPpasswdd == "12345"){
+        if(SIMPusername.equals("Álex") && SIMPpasswdd.equals("12345")){
             login = true;
+            player = "2";
         }
         if(login){
-            String SIMPconsulta = "SELECT ActualLevel " +
-                    "FROM POINTS " +
-                    "WHERE Player = '" + SIMPusername + "'";
-
-            Cursor cursor = SIMPsql.rawQuery(SIMPconsulta, null);
-
-            if (cursor.moveToFirst()){
                 Toast.makeText(this, "Inicio de sesión exitoso", Toast.LENGTH_SHORT).show();
                 Intent SIMPmainGame = new Intent(this, MainActivity.class);
-                SIMPmainGame.putExtra("level", cursor.getString(1));{
+                SIMPmainGame.putExtra("player", player);
+                Log.d("Debug", player);
                 startActivity(SIMPmainGame);
-            }
+
         } else {
             Toast.makeText(this, "Usuario y/o contraseñas incorrectos", Toast.LENGTH_SHORT).show();
         }
