@@ -5,7 +5,9 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
 import com.aperez.apps.androidfunwithflags.MainActivity;
+import com.aperez.apps.androidfunwithflags.MainActivityFragment;
 import com.aperez.apps.data.DatabaseDescription.Contact;
+import com.aperez.apps.eventhandlers.GuessButtonListener;
 import com.aperez.apps.login.LoginSIMP;
 
 public class DatabaseHelper extends SQLiteOpenHelper {
@@ -35,6 +37,9 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
     }
     public DatabaseHelper(MainActivity context, String s, Object o, int i) {
+        super(context, DATABASE_NAME, null, DATABASE_VERSION);
+    }
+    public DatabaseHelper(GuessButtonListener context, String s, Object o, int i) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
     }
 
