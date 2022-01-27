@@ -23,12 +23,13 @@ import java.sql.SQLException;
 
 public class GuessButtonListener implements OnClickListener {
     private MainActivityFragment mainActivityFragment;
-    private MainActivity mainActivity;
     private Handler handler;
+    private Context c;
 
     public GuessButtonListener(MainActivityFragment mainActivityFragment) {
         this.mainActivityFragment = mainActivityFragment;
         this.handler = new Handler();
+        this.c = mainActivityFragment.getContext();
     }
 
     @Override
@@ -58,12 +59,22 @@ public class GuessButtonListener implements OnClickListener {
                                     "returned null",
                             e);
                 }
+                DatabaseHelper SIMPdbHelper = new DatabaseHelper((MainActivity) this.c, "AddressBook.db", null, 1);
                 SQLiteDatabase SIMPsql = SIMPdbHelper.getReadableDatabase();
-                String SIMPconsulta = "SELECT ActualLevel " +
+                String SIMPconsulta1 = "SELECT ActualLevel " +
                         "FROM POINTS " +
-                        "WHERE Player = '" + 2 + "'";
+                        "WHERE Player = '" + MainActivity.player + "'";
+                Cursor cursor = SIMPsql.rawQuery(SIMPconsulta1, null);
+                if (cursor.moveToFirst()){
+                    int level = Integer.parseInt(cursor.getString(0));
+                }
+                String SIMPconsulta2 = "UPDATE POINTS" +
+                        "SET ActualLevel " +
+                        "WHERE Player = '" + MainActivity.player + "'";
 
-
+                if (cursor.moveToFirst()){
+                    Log.d("DEBUG", cursor.getString(0) + "");
+                }
             } else {
                 this.handler.postDelayed(
                         new Runnable() {

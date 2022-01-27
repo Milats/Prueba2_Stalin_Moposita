@@ -30,7 +30,7 @@ public class MainActivity extends AppCompatActivity {
     private QuizViewModel quizViewModel;
     private OnSharedPreferenceChangeListener preferencesChangeListener;
 
-    private String player = "0";
+    public static String player = "0";
     private int actualLevel = 2;
     private TextView playerName;
 
