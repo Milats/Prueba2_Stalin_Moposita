@@ -31,7 +31,7 @@ public class MainActivity extends AppCompatActivity {
     private OnSharedPreferenceChangeListener preferencesChangeListener;
 
     private String player = "0";
-    private String actualLevel = "0";
+    private int actualLevel = 2;
     private TextView playerName;
 
     private void setSharedPreferences() {
@@ -41,7 +41,6 @@ public class MainActivity extends AppCompatActivity {
         PreferenceManager.getDefaultSharedPreferences(this)
                 .registerOnSharedPreferenceChangeListener(preferencesChangeListener);
     }
-
     private void screenSetUp() {
         if (getScreenSize() == Configuration.SCREENLAYOUT_SIZE_LARGE ||
                 getScreenSize() == Configuration.SCREENLAYOUT_SIZE_XLARGE) {
@@ -51,7 +50,6 @@ public class MainActivity extends AppCompatActivity {
             setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
         }
     }
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
@@ -62,19 +60,22 @@ public class MainActivity extends AppCompatActivity {
         SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
         SharedPreferences.Editor editor = preferences.edit();
 
-        DatabaseHelper SIMPdbHelper = new DatabaseHelper(this, "AddressBook.db", null, 1);
-        SQLiteDatabase SIMPsql = SIMPdbHelper.getReadableDatabase();
+
         Bundle extras = getIntent().getExtras();
         player = extras.getString("player");
 
+        DatabaseHelper SIMPdbHelper = new DatabaseHelper(this, "AddressBook.db", null, 1);
+        SQLiteDatabase SIMPsql = SIMPdbHelper.getReadableDatabase();
         String SIMPconsulta = "SELECT ActualLevel " +
                 "FROM POINTS " +
-                "WHERE Player = '2'";
+                "WHERE Player = '" + player + "'";
 
         Cursor cursor = SIMPsql.rawQuery(SIMPconsulta, null);
-        Log.d("DEBUG", cursor.getString(0));
+        if (cursor.moveToFirst()){
+            actualLevel = Integer.parseInt(cursor.getString(0)) * 2;
+        }
 
-        editor.putString("pref_numberOfChoices", "2");
+        editor.putString("pref_numberOfChoices", actualLevel + "");
         editor.commit();
 
         setContentView(R.layout.activity_main);
@@ -93,7 +94,6 @@ public class MainActivity extends AppCompatActivity {
             }
         }
     }
-
     @Override
     protected void onStart() {
         super.onStart();
@@ -110,7 +110,6 @@ public class MainActivity extends AppCompatActivity {
             preferencesChanged = false;
         }
     }
-
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         int orientation = getResources().getConfiguration().orientation;
@@ -122,38 +121,29 @@ public class MainActivity extends AppCompatActivity {
             return false;
         }
     }
-
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         Intent preferencesIntent = new Intent(this, SettingsActivity.class);
         startActivity(preferencesIntent);
         return super.onOptionsItemSelected(item);
     }
-
     public int getScreenSize() {
         return getResources().getConfiguration().screenLayout &
                 Configuration.SCREENLAYOUT_SIZE_MASK;
     }
-
     public MainActivityFragment getQuizFragment() {
         return this.quizFragment;
     }
-
     public QuizViewModel getQuizViewModel() {
         return quizViewModel;
     }
-
     public static String getCHOICES() {
         return CHOICES;
     }
-
     public static String getREGIONS() {
         return REGIONS;
     }
-
     public void setPreferencesChanged(boolean preferencesChanged) {
         this.preferencesChanged = preferencesChanged;
     }
-
-
 }

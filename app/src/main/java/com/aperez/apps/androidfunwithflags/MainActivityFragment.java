@@ -47,7 +47,6 @@ public class MainActivityFragment extends Fragment {
         super.onCreate(savedInstanceState);
         this.quizViewModel = ViewModelProviders.of(getActivity()).get(QuizViewModel.class);
     }
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -89,7 +88,6 @@ public class MainActivityFragment extends Fragment {
                 getString(R.string.question, 1, QuizViewModel.getFlagsInQuiz()));
         return view;
     }
-
     public void updateGuessRows() {
 
         int numberOfGuessRows = this.quizViewModel.getGuessRows();
@@ -100,7 +98,6 @@ public class MainActivityFragment extends Fragment {
             guessTableRows[rowNumber].setVisibility(View.VISIBLE);
         }
     }
-
     public void resetQuiz() {
         this.quizViewModel.clearFileNameList();
         this.quizViewModel.setFileNameList(getActivity().getAssets());
@@ -124,7 +121,6 @@ public class MainActivityFragment extends Fragment {
         this.updateGuessRows();
         this.loadNextFlag();
     }
-
     private void loadNextFlag() {
         AssetManager assets = getActivity().getAssets();
         String nextImage = this.quizViewModel.getNextCountryFlag();
@@ -164,7 +160,6 @@ public class MainActivityFragment extends Fragment {
         TableRow randomRow = guessTableRows[row];
         ((Button) randomRow.getChildAt(column)).setText(this.quizViewModel.getCorrectCountryName());
     }
-
     public void animate(boolean animateOut) {
         if (this.quizViewModel.getCorrectAnswers() == 0) {
             return;
@@ -191,14 +186,12 @@ public class MainActivityFragment extends Fragment {
         animator.setDuration(500);
         animator.start();
     }
-
     public void incorrectAnswerAnimation(){
         flagImageView.startAnimation(shakeAnimation);
 
         answerTextView.setText(R.string.incorrect_answer);
         answerTextView.setTextColor(getResources().getColor(R.color.wrong_answer));
     }
-
     public void disableButtons() {
         for (TableRow row : this.guessTableRows) {
             for (int column = 0; column < row.getChildCount(); column++) {
@@ -206,11 +199,9 @@ public class MainActivityFragment extends Fragment {
             }
         }
     }
-
     public TextView getAnswerTextView() {
         return answerTextView;
     }
-
     public QuizViewModel getQuizViewModel() {
         return quizViewModel;
     }

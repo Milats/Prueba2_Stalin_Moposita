@@ -44,6 +44,20 @@
             android:onClick="onClicLogin"
             android:text="@string/login_button" />
 
+        <TextView
+            android:id="@+id/textView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Danny - 13456" />
+
+        <TextView
+            android:id="@+id/textView2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Álex - 12345" />
+
     </LinearLayout>
     </ScrollView>
 </FrameLayout>
