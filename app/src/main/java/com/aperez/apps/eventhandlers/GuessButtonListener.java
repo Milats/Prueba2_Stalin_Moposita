@@ -61,20 +61,20 @@ public class GuessButtonListener implements OnClickListener {
                 }
                 DatabaseHelper SIMPdbHelper = new DatabaseHelper((MainActivity) this.c, "AddressBook.db", null, 1);
                 SQLiteDatabase SIMPsql = SIMPdbHelper.getReadableDatabase();
+                int level = 1;
                 String SIMPconsulta1 = "SELECT ActualLevel " +
                         "FROM POINTS " +
                         "WHERE Player = '" + MainActivity.player + "'";
                 Cursor cursor = SIMPsql.rawQuery(SIMPconsulta1, null);
                 if (cursor.moveToFirst()){
-                    int level = Integer.parseInt(cursor.getString(0));
+                    level = Integer.parseInt(cursor.getString(0)) + 1;
                 }
-                String SIMPconsulta2 = "UPDATE POINTS" +
-                        "SET ActualLevel " +
+                String SIMPconsulta2 = "UPDATE POINTS " +
+                        "SET ActualLevel = '" + level + "'" +
                         "WHERE Player = '" + MainActivity.player + "'";
+                Cursor cursor2 = SIMPsql.rawQuery(SIMPconsulta2, null);
+                SIMPdbHelper.close();
 
-                if (cursor.moveToFirst()){
-                    Log.d("DEBUG", cursor.getString(0) + "");
-                }
             } else {
                 this.handler.postDelayed(
                         new Runnable() {
