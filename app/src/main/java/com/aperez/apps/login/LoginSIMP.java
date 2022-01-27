@@ -65,17 +65,24 @@ public class LoginSIMP extends AppCompatActivity
             login = true;
             player = "1";
         }
-        if(SIMPusername.equals("Álex") && SIMPpasswdd.equals("12345")){
+        if(SIMPusername == "Álex" && SIMPpasswdd == "12345"){
             login = true;
             player = "2";
         }
         if(login){
+            String SIMPconsulta = "SELECT ActualLevel " +
+                    "FROM POINTS " +
+                    "WHERE Player = '" + player + "'";
+
+            Cursor cursor = SIMPsql.rawQuery(SIMPconsulta, null);
+
+            if (cursor.moveToFirst()){
                 Toast.makeText(this, "Inicio de sesión exitoso", Toast.LENGTH_SHORT).show();
                 Intent SIMPmainGame = new Intent(this, MainActivity.class);
-                SIMPmainGame.putExtra("player", player);
-                Log.d("Debug", player);
+                SIMPmainGame.putExtra("level", cursor.getString(0));
+                Log.d("Debug", cursor.getString(0));
                 startActivity(SIMPmainGame);
-
+            }
         } else {
             Toast.makeText(this, "Usuario y/o contraseñas incorrectos", Toast.LENGTH_SHORT).show();
         }

@@ -12,6 +12,7 @@ import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.TextView;
@@ -63,12 +64,27 @@ public class MainActivity extends AppCompatActivity {
 
         DatabaseHelper SIMPdbHelper = new DatabaseHelper(this, "AddressBook.db", null, 1);
         SQLiteDatabase SIMPsql = SIMPdbHelper.getReadableDatabase();
+        Bundle extras = getIntent().getExtras();
+        player = extras.getString("player");
 
+        String SIMPconsulta = "SELECT ActualLevel " +
+                "FROM POINTS " +
+                "WHERE Player = '2'";
+
+        Cursor cursor = SIMPsql.rawQuery(SIMPconsulta, null);
+        Log.d("DEBUG", cursor.getString(0));
+
+        editor.putString("pref_numberOfChoices", "2");
+        editor.commit();
+
+        setContentView(R.layout.activity_main);
+        Toolbar toolbar = findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+        this.setSharedPreferences();
+        this.screenSetUp();
         playerName = findViewById(R.id.textViewJugador);
 
-        Bundle extras = getIntent().getExtras();
         if (extras != null) {
-            String player = extras.getString("player");
             //The key argument here must match that used in the other activity
             if(player.equals("1")){
                 playerName.setText("Danny");
@@ -76,22 +92,6 @@ public class MainActivity extends AppCompatActivity {
                 playerName.setText("Álex");
             }
         }
-
-        String SIMPconsulta = "SELECT ActualLevel " +
-                "FROM POINTS " +
-                "WHERE Player = '" + player + "'";
-
-        Cursor cursor = SIMPsql.rawQuery(SIMPconsulta, null);
-
-
-        editor.putString("pref_numberOfChoices", "2");
-
-        editor.commit();
-        setContentView(R.layout.activity_main);
-        Toolbar toolbar = findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
-        this.setSharedPreferences();
-        this.screenSetUp();
     }
 
     @Override
