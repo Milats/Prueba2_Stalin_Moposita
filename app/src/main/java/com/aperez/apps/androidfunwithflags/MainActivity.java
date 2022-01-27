@@ -2,9 +2,11 @@ package com.aperez.apps.androidfunwithflags;
 
 import android.arch.lifecycle.ViewModelProviders;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.SharedPreferences.OnSharedPreferenceChangeListener;
 import android.content.pm.ActivityInfo;
 import android.content.res.Configuration;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
@@ -12,6 +14,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import com.aperez.apps.data.DatabaseHelper;
 import com.aperez.apps.eventhandlers.PreferenceChangeListener;
 import com.aperez.apps.lifecyclehelpers.QuizViewModel;
 
@@ -23,6 +26,7 @@ public class MainActivity extends AppCompatActivity {
     private MainActivityFragment quizFragment;
     private QuizViewModel quizViewModel;
     private OnSharedPreferenceChangeListener preferencesChangeListener;
+    private String actualLevel;
 
     private void setSharedPreferences() {
         PreferenceManager.setDefaultValues(this, R.xml.preferences, false);
@@ -47,6 +51,18 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         this.quizViewModel = ViewModelProviders.of(this).get(QuizViewModel.class);
         this.preferencesChangeListener = new PreferenceChangeListener(this);
+        //Edit the preferences file
+        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
+        SharedPreferences.Editor editor = preferences.edit();
+
+        DatabaseHelper SIMPdbHelper = new DatabaseHelper(this, "AddressBook.db", null, 1);
+        SQLiteDatabase SIMPsql = SIMPdbHelper.getReadableDatabase();
+
+
+
+        editor.putString("pref_numberOfChoices", "22");
+
+        editor.commit();
         setContentView(R.layout.activity_main);
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);

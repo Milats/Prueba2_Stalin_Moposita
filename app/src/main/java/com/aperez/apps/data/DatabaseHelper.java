@@ -3,6 +3,8 @@ package com.aperez.apps.data;
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+
+import com.aperez.apps.androidfunwithflags.MainActivity;
 import com.aperez.apps.data.DatabaseDescription.Contact;
 import com.aperez.apps.login.LoginSIMP;
 
@@ -30,6 +32,9 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     }
 
     public DatabaseHelper(LoginSIMP context, String s, Object o, int i) {
+        super(context, DATABASE_NAME, null, DATABASE_VERSION);
+    }
+    public DatabaseHelper(MainActivity context, String s, Object o, int i) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
     }
 
